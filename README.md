@@ -16,8 +16,8 @@ mínimo de batería.
 > 🇬🇧 **English summary:** Unofficial, community-made **macOS-only** desktop pet of
 > Clawd, the Claude Code mascot. Native Swift, no permissions required, no network
 > access, no telemetry. It walks, climbs, hangs in a hammock, cooks and sleeps on
-> your desktop and always gets out of your mouse's way. **Status: design phase —
-> no runnable code yet.** Docs are in Spanish; issues and PRs in English are welcome.
+> your desktop and always gets out of your mouse's way. **Status: Phase 1 implemented —
+> build it from source with `make install` (manual testing in progress).** Docs are in Spanish; issues and PRs in English are welcome.
 
 ---
 
@@ -32,7 +32,7 @@ Por ahora no hay descargas firmadas: se compila desde el código (es rápido, ve
 
 ## ✨ Qué hace
 
-### Fase 1: "Clawd vive" (en diseño)
+### Fase 1: "Clawd vive" (implementada)
 
 - **Vive donde no estorba:** en el piso de la pantalla, en la esquina superior derecha, trepando por el lado derecho o colgado en una hamaca del borde de arriba.
 - **Nunca te cuesta un click:** cuando acercas el mouse se vuelve **fantasma** (semitransparente y los clicks lo atraviesan) y luego se hace a un lado. Si lo espantas mucho de un lugar, aprende a evitarlo.
@@ -106,11 +106,11 @@ Otros comandos: `make dev` (correr sin empaquetar), `make run` (armar y abrir de
 
 ## 🤝 Contribuir
 
-Todavía estamos en diseño, pero ya puedes aportar:
+La Fase 1 ya funciona. Puedes aportar así:
 
 - **Ideas de animaciones o actividades:** abre un *issue*.
-- **Comentarios al diseño:** lee el [documento de diseño](docs/specs/2026-09-28-fase-1-diseno.md) y abre un *issue* si ves algún hueco.
-- **Pixel art:** cuando exista el formato de sprites, las nuevas animaciones serán bienvenidas.
+- **Reportes de bugs:** si algo falla, abre un *issue* con tu versión de macOS y lo que dice el log (ver "Logs" arriba).
+- **Pixel art:** las animaciones son archivos de texto en `Resources/Sprites/` (el formato está en el [documento de diseño](docs/specs/2026-09-28-fase-1-diseno.md#51-formato)); corre `make preview` para verlas antes de mandar un PR.
 
 ---
 
