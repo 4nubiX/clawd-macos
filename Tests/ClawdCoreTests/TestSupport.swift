@@ -33,3 +33,18 @@ let laptop = ScreenInfo(
 let external = ScreenInfo(
     id: 2, frame: CGRect(x: 1512, y: 0, width: 1920, height: 1080),
     visibleFrame: CGRect(x: 1512, y: 0, width: 1920, height: 1055))
+
+/// Azar "trucado": devuelve siempre la misma lista de valores, en ciclo.
+struct FixedRandom: RandomSource {
+    var values: [Double]
+    var index = 0
+
+    init(_ values: [Double]) {
+        self.values = values
+    }
+
+    mutating func nextUnit() -> Double {
+        defer { index += 1 }
+        return values[index % values.count]
+    }
+}

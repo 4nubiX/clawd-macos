@@ -15,3 +15,8 @@ public struct ZoneKey: Hashable, Sendable {
         self.zone = zone
     }
 }
+
+/// Lugar físico donde está Clawd.
+public enum Place: String, Equatable, Sendable {
+    case floor, wall, corner, hammock, air
+}
