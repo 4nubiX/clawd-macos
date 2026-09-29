@@ -71,6 +71,7 @@ final class PetController {
     private func refreshRunState() {
         window.sharingType = settings.hideWhenSharing ? .none : .readOnly
         if settings.isHidden || !pauseReasons.isEmpty {
+            cancelGesture()
             window.orderOut(nil)
             schedule(fps: 0)
         } else {
@@ -113,6 +114,7 @@ final class PetController {
         pendingClick = false
 
         guard let render = brain.tick(snapshot) else {
+            cancelGesture()
             window.orderOut(nil)
             return
         }
@@ -132,7 +134,7 @@ final class PetController {
         if window.frame != render.frameRect { window.setFrame(render.frameRect, display: true) }
         window.alphaValue = render.opacity
         let overClawd = render.acceptsClicks && isOverOpaquePixel(render, mouse: mouse)
-        window.ignoresMouseEvents = !(dragAnchor != nil || overClawd)
+        window.ignoresMouseEvents = !(dragAnchor != nil || mouseDownLocation != nil || overClawd)
         if !window.isVisible { window.orderFrontRegardless() }
     }
 
@@ -143,6 +145,13 @@ final class PetController {
     }
 
     // MARK: - ⌥ click y ⌥ arrastrar
+
+    /// Si se interrumpe un gesto (pausa, escondido o sin pantallas), se descarta para que Clawd no quede "cargado".
+    private func cancelGesture() {
+        dragAnchor = nil
+        mouseDownLocation = nil
+        pendingClick = false
+    }
 
     private func mouseDown() {
         mouseDownLocation = NSEvent.mouseLocation
