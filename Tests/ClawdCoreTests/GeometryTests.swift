@@ -26,6 +26,20 @@ struct GeometryTests {
         #expect(rect == CGRect(x: 440, y: 940, width: 120, height: 60))
     }
 
+    @Test("Al cargarlo, el cursor agarra el mismo punto relativo del sprite")
+    func anclaAlCargar() {
+        let fall = info(16, 9, anchor: (8, 9), fps: 8, frames: 2, loops: true)
+        let sit = info(18, 11, anchor: (18, 0), fps: 3, frames: 6, loops: true)
+        let corner = CGPoint(x: 3_432, y: 1_055)
+        let sitRect = Geometry.frameRect(anchorPosition: corner, info: sit, scale: 5, facingLeft: false)
+        let grab = CGPoint(x: sitRect.midX, y: sitRect.midY)
+        let anchor = Geometry.carriedAnchor(grabbing: grab, in: sitRect, carriedInfo: fall, scale: 5)
+        let carriedRect = Geometry.frameRect(anchorPosition: anchor, info: fall, scale: 5, facingLeft: false)
+        #expect(abs(carriedRect.midX - grab.x) < 0.001)
+        #expect(abs(carriedRect.midY - grab.y) < 0.001)
+        #expect(carriedRect.maxY <= corner.y)   // ya no queda detrás de la barra de menú
+    }
+
     @Test("Distancia de un punto a un rectángulo")
     func distancia() {
         let rect = CGRect(x: 0, y: 0, width: 10, height: 10)

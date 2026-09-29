@@ -20,7 +20,7 @@ enum SpriteLoader {
 
     static func load() -> SpriteLibrary {
         let directory = spritesDirectory()
-        Log.sprites.info("Cargando sprites de \(directory.path, privacy: .public)")
+        Log.sprites.info("Cargando sprites de \((directory.path as NSString).abbreviatingWithTildeInPath, privacy: .public)")
         return TextSpriteSource(directory: directory).load()
     }
 }

@@ -119,7 +119,8 @@ final class PetController {
             return
         }
         apply(render, mouse: snapshot.mouse)
-        let fps: Double = (render.isMoving || dragAnchor != nil) ? 30 : (render.isSleeping ? 2 : 12)
+        // Con ⌥ presionado va a 30 fps para que el hit-test del ratón responda al instante.
+        let fps: Double = (render.isMoving || dragAnchor != nil || snapshot.optionPressed) ? 30 : (render.isSleeping ? 2 : 12)
         schedule(fps: fps)
     }
 
@@ -163,8 +164,14 @@ final class PetController {
             // Solo cuenta como arrastre si te moviste más de 3 pt (si no, es un click).
             guard let start = mouseDownLocation,
                   hypot(mouse.x - start.x, mouse.y - start.y) > 3,
-                  let anchor = lastRender?.anchorPosition
+                  let previousRect = lastRender?.frameRect
             else { return }
+            // Mientras lo cargas se dibuja `caer`, cuya ancla no coincide con la de la animación
+            // anterior (sentado, hamaca, trepar…). Calculamos el ancla de `caer` de modo que el
+            // cursor siga agarrando el mismo punto relativo del sprite y no salte al levantarlo.
+            // `caer` tiene el ancla centrada en x, así que hacia dónde mire no cambia el resultado.
+            let carriedInfo = library.infos[AnimationName.fall] ?? .fallback
+            let anchor = Geometry.carriedAnchor(grabbing: start, in: previousRect, carriedInfo: carriedInfo, scale: settings.size.rawValue)
             dragOffset = CGVector(dx: anchor.x - start.x, dy: anchor.y - start.y)
             schedule(fps: 30)
         }

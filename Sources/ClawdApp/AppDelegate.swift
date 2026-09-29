@@ -23,6 +23,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             let alert = NSAlert()
             alert.messageText = "Clawd no encontró sus sprites"
             alert.informativeText = "Falta la animación 'idle'. Revisa el log en Console.app (filtra por \"Clawd\")."
+            // Somos una app sin Dock: hay que activarla o el aviso puede quedar escondido.
+            NSApp.activate(ignoringOtherApps: true)
             alert.runModal()
             NSApp.terminate(nil)
             return

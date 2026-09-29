@@ -52,8 +52,8 @@ public enum SpriteParser {
 
             switch key {
             case "fps":
-                guard let parsed = Double(value), parsed > 0 else {
-                    throw SpriteParseError(line: lineNumber, message: "fps debe ser un número mayor que 0")
+                guard let parsed = Double(value), parsed.isFinite, parsed > 0, parsed <= 60 else {
+                    throw SpriteParseError(line: lineNumber, message: "fps debe ser un número mayor que 0 y hasta 60")
                 }
                 fps = parsed
             case "repetir":

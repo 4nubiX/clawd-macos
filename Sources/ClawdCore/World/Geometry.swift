@@ -38,6 +38,22 @@ public enum Geometry {
         return CGRect(x: anchorPosition.x - anchorX * s, y: top - height, width: width, height: height)
     }
 
+    /// Dónde debe ir el ancla del sprite "cargado" para que el cursor siga agarrando
+    /// el mismo punto relativo del sprite que tenía antes (así no salta al levantarlo).
+    public static func carriedAnchor(grabbing point: CGPoint, in previousRect: CGRect, carriedInfo: AnimationInfo, scale: Int) -> CGPoint {
+        let s = CGFloat(scale)
+        let width = CGFloat(carriedInfo.width) * s
+        let height = CGFloat(carriedInfo.height) * s
+        // Posición relativa (0…1) del punto agarrado dentro del sprite anterior.
+        let u = previousRect.width > 0 ? min(max((point.x - previousRect.minX) / previousRect.width, 0), 1) : 0.5
+        let v = previousRect.height > 0 ? min(max((point.y - previousRect.minY) / previousRect.height, 0), 1) : 0.5
+        let minX = point.x - u * width
+        let minY = point.y - v * height
+        return CGPoint(
+            x: minX + CGFloat(carriedInfo.anchor.x) * s,
+            y: minY + height - CGFloat(carriedInfo.anchor.y) * s)
+    }
+
     /// Distancia más corta de un punto a un rectángulo (0 si está adentro).
     public static func distance(from point: CGPoint, to rect: CGRect) -> CGFloat {
         let dx = max(rect.minX - point.x, 0, point.x - rect.maxX)

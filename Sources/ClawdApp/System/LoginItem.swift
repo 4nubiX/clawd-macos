@@ -72,6 +72,6 @@ enum LoginItem {
         let data = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0)
         try FileManager.default.createDirectory(at: agentURL.deletingLastPathComponent(), withIntermediateDirectories: true)
         try data.write(to: agentURL, options: .atomic)
-        Log.app.info("LaunchAgent escrito en \(agentURL.path, privacy: .public)")
+        Log.app.info("LaunchAgent escrito en \((agentURL.path as NSString).abbreviatingWithTildeInPath, privacy: .public)")
     }
 }

@@ -48,6 +48,12 @@ struct SpriteParserTests {
         expectError(texto, line: 1, contains: "fps")
     }
 
+    @Test("fps infinito o absurdo → error en su línea", arguments: ["inf", "1000"])
+    func fpsAbsurdo(valor: String) {
+        let texto = valido.replacingOccurrences(of: "fps: 4", with: "fps: \(valor)")
+        expectError(texto, line: 2, contains: "fps")
+    }
+
     @Test("Símbolo fuera de la paleta → error en su línea")
     func simboloDesconocido() {
         let texto = valido.replacingOccurrences(of: ".K", with: ".X")
