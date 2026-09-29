@@ -1,0 +1,58 @@
+# Hamaca colgada del techo (debajo de la barra de menú), meciéndose.
+fps: 3
+repetir: si
+ancla: 12,0
+paleta: O=#D97757 o=#B85C3E K=#1A1A1A B=#BA8A5A b=#854F0B
+
+--- cuadro 1 (centro)
+..b..................b..
+..b..................b..
+..b..................b..
+..b...OOOOOOOOOOOO...b..
+..b...OOOOOOOOOOOO...b..
+..b...OOKOOOOOOKOO...b..
+..b.OOOOKOOOOOOKOOOO.b..
+..b.OOOOOOOOOOOOOOOO.b..
+..b...OOOOOOOOOOOO...b..
+..BB..oooooooooooo..BB..
+...BBBBBBBBBBBBBBBBBB...
+.....BBBBBBBBBBBBBB.....
+--- cuadro 2 (derecha)
+..b..................b..
+..b..................b..
+..b..................b..
+...b...OOOOOOOOOOOO...b.
+...b...OOOOOOOOOOOO...b.
+...b...OOKOOOOOOKOO...b.
+...b.OOOOKOOOOOOKOOOO.b.
+...b.OOOOOOOOOOOOOOOO.b.
+...b...OOOOOOOOOOOO...b.
+...BB..oooooooooooo..BB.
+....BBBBBBBBBBBBBBBBBB..
+......BBBBBBBBBBBBBB....
+--- cuadro 3 (centro)
+..b..................b..
+..b..................b..
+..b..................b..
+..b...OOOOOOOOOOOO...b..
+..b...OOOOOOOOOOOO...b..
+..b...OOKOOOOOOKOO...b..
+..b.OOOOKOOOOOOKOOOO.b..
+..b.OOOOOOOOOOOOOOOO.b..
+..b...OOOOOOOOOOOO...b..
+..BB..oooooooooooo..BB..
+...BBBBBBBBBBBBBBBBBB...
+.....BBBBBBBBBBBBBB.....
+--- cuadro 4 (izquierda)
+..b..................b..
+..b..................b..
+..b..................b..
+.b...OOOOOOOOOOOO...b...
+.b...OOOOOOOOOOOO...b...
+.b...OOKOOOOOOKOO...b...
+.b.OOOOKOOOOOOKOOOO.b...
+.b.OOOOOOOOOOOOOOOO.b...
+.b...OOOOOOOOOOOO...b...
+.BB..oooooooooooo..BB...
+..BBBBBBBBBBBBBBBBBB....
+....BBBBBBBBBBBBBB......

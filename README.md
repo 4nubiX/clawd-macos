@@ -6,7 +6,7 @@
 
 ![Plataforma](https://img.shields.io/badge/plataforma-macOS%2014%2B-lightgrey)
 ![Swift](https://img.shields.io/badge/Swift-6-orange)
-![Estado](https://img.shields.io/badge/estado-en%20dise%C3%B1o-yellow)
+![Estado](https://img.shields.io/badge/estado-fase%201-green)
 ![Licencia](https://img.shields.io/badge/licencia-MIT-blue)
 
 **🍎 Solo para macOS.** No hay versión para Windows ni para Linux, y no está planeada.
@@ -16,26 +16,23 @@ mínimo de batería.
 > 🇬🇧 **English summary:** Unofficial, community-made **macOS-only** desktop pet of
 > Clawd, the Claude Code mascot. Native Swift, no permissions required, no network
 > access, no telemetry. It walks, climbs, hangs in a hammock, cooks and sleeps on
-> your desktop and always gets out of your mouse's way. **Status: design phase —
-> no runnable code yet.** Docs are in Spanish; issues and PRs in English are welcome.
+> your desktop and always gets out of your mouse's way. **Status: Phase 1 implemented —
+> build it from source with `make install` (manual testing in progress).** Docs are in Spanish; issues and PRs in English are welcome.
 
 ---
 
 ## 🚧 Estado actual
 
-**Estamos en la etapa de diseño.** Todavía no hay una app que puedas descargar.
+- ✅ **Fase 1 ("Clawd vive")**: implementada (falta terminar las pruebas manuales). Ver [diseño](docs/specs/2026-09-28-fase-1-diseno.md), [plan](docs/plans/2026-09-29-fase-1-plan.md) y [pruebas manuales](docs/pruebas-manuales.md).
+- ⏳ Fase 2: reaccionar a Claude Code.
 
-- ✅ Diseño de la Fase 1 terminado → [`docs/specs/2026-09-28-fase-1-diseno.md`](docs/specs/2026-09-28-fase-1-diseno.md)
-- ⏳ Plan de implementación
-- ⏳ Código de la Fase 1
-
-Dale ⭐ o *watch* al repo si quieres enterarte cuando salga la primera versión.
+Por ahora no hay descargas firmadas: se compila desde el código (es rápido, ver abajo).
 
 ---
 
 ## ✨ Qué hace
 
-### Fase 1: "Clawd vive" (en diseño)
+### Fase 1: "Clawd vive" (implementada)
 
 - **Vive donde no estorba:** en el piso de la pantalla, en la esquina superior derecha, trepando por el lado derecho o colgado en una hamaca del borde de arriba.
 - **Nunca te cuesta un click:** cuando acercas el mouse se vuelve **fantasma** (semitransparente y los clicks lo atraviesan) y luego se hace a un lado. Si lo espantas mucho de un lugar, aprende a evitarlo.
@@ -84,25 +81,37 @@ de monitor) están en el [documento de diseño](docs/specs/2026-09-28-fase-1-dis
 - **No pide permisos de macOS** para funcionar. No necesita Accesibilidad ni Grabación de pantalla.
 - **Sin internet:** la Fase 1 no se conecta a nada.
 - **Sin telemetría:** no recopila ni envía ningún dato.
+- **Ocultar al compartir pantalla:** Clawd se excluye de las capturas de macOS; algunas apps de videollamada podrían ignorarlo, por eso existe el atajo ⌃⌥⌘C para esconderlo al instante.
 - **Fase 2:** la integración con Claude Code funcionará **solo en tu Mac** (`127.0.0.1`), mediante los *hooks* oficiales de Claude Code, que tú configuras.
 
 ---
 
-## 💻 Requisitos (cuando haya versión)
+## 💻 Compilar e instalar
 
-- macOS 14 (Sonoma) o superior
-- Mac con Apple Silicon o Intel
-- Para compilar: Xcode 16 o superior (o las Command Line Tools con Swift 6)
+Requisitos: macOS 14 (Sonoma) o superior y Xcode 16+ (o las Command Line Tools con Swift 6).
+
+    git clone https://github.com/4nubiX/clawd-macos.git
+    cd clawd-macos
+    make test      # corre los tests del cerebro
+    make install   # compila, arma Clawd.app, lo copia a /Applications y lo abre
+
+Otros comandos: `make dev` (correr sin empaquetar), `make run` (armar y abrir desde `build/`),
+`make preview` (hoja PNG con todas las animaciones en `build/preview.png`).
+
+**Uso:** Clawd vive solo. Acerca el mouse y se hace a un lado. **⌥ + click** para que salude,
+**⌥ + arrastrar** para cargarlo. **⌃⌥⌘C** lo esconde o lo muestra. El resto está en su icono de la barra de menú.
+
+**Logs:** `log stream --predicate 'subsystem == "com.4nubix.clawd"'` o Console.app filtrando por "Clawd".
 
 ---
 
 ## 🤝 Contribuir
 
-Todavía estamos en diseño, pero ya puedes aportar:
+La Fase 1 ya funciona. Puedes aportar así:
 
 - **Ideas de animaciones o actividades:** abre un *issue*.
-- **Comentarios al diseño:** lee el [documento de diseño](docs/specs/2026-09-28-fase-1-diseno.md) y abre un *issue* si ves algún hueco.
-- **Pixel art:** cuando exista el formato de sprites, las nuevas animaciones serán bienvenidas.
+- **Reportes de bugs:** si algo falla, abre un *issue* con tu versión de macOS y lo que dice el log (ver "Logs" arriba).
+- **Pixel art:** las animaciones son archivos de texto en `Resources/Sprites/` (el formato está en el [documento de diseño](docs/specs/2026-09-28-fase-1-diseno.md#51-formato)); corre `make preview` para verlas antes de mandar un PR.
 
 ---
 

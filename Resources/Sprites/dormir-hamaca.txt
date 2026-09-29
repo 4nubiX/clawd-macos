@@ -1,0 +1,32 @@
+# Dormido en la hamaca.
+fps: 1
+repetir: si
+ancla: 12,0
+paleta: O=#D97757 o=#B85C3E K=#1A1A1A B=#BA8A5A b=#854F0B Z=#9A9A94
+
+--- cuadro 1
+..b...........ZZZ....b..
+..b............Z.....b..
+..b...........ZZZ....b..
+..b...OOOOOOOOOOOO...b..
+..b...OOOOOOOOOOOO...b..
+..b...OOOOOOOOOOOO...b..
+..b.OOOOKOOOOOOKOOOO.b..
+..b.OOOOOOOOOOOOOOOO.b..
+..b...OOOOOOOOOOOO...b..
+..BB..oooooooooooo..BB..
+...BBBBBBBBBBBBBBBBBB...
+.....BBBBBBBBBBBBBB.....
+--- cuadro 2
+..b..................b..
+..b..................b..
+..b..................b..
+..b...OOOOOOOOOOOO...b..
+..b...OOOOOOOOOOOO...b..
+..b...OOOOOOOOOOOO...b..
+..b.OOOOKOOOOOOKOOOO.b..
+..b.OOOOOOOOOOOOOOOO.b..
+..b...OOOOOOOOOOOO...b..
+..BB..oooooooooooo..BB..
+...BBBBBBBBBBBBBBBBBB...
+.....BBBBBBBBBBBBBB.....

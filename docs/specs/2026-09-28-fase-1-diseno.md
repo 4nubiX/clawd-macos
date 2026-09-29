@@ -1,7 +1,7 @@
 # Clawd para macOS — Diseño de la Fase 1: "Clawd vive"
 
 - **Fecha:** 2026-09-28
-- **Estado:** Diseño aprobado, pendiente de plan de implementación
+- **Estado:** Implementado en la rama `fase-1` (pruebas manuales en curso)
 - **Plataforma:** solo macOS 14 (Sonoma) o superior
 - **Autores:** Santiago H. ([@4nubiX](https://github.com/4nubiX)) con Claude (Anthropic)
 
@@ -108,7 +108,7 @@ se ve mal sabes enseguida si es un problema de lógica o de dibujo.
 - Un timer en el hilo principal llama a `brain.tick(snapshot)` y aplica el resultado.
 - **Frecuencia adaptativa** para cuidar la batería:
   - 30 fps mientras Clawd se mueve (caminar, trepar, caer, ser arrastrado).
-  - ~8 fps cuando está quieto.
+  - ~12 fps cuando está quieto.
   - ~2 fps dormido.
   - **0 fps** con la pantalla bloqueada o las pantallas dormidas.
 - El delta de tiempo **se limita a 0.1 s por tick**, para que al despertar la Mac Clawd no salga disparado.
@@ -356,3 +356,30 @@ lo pide, se consulta al usuario antes de implementarlo.
 
 - **Fase 2:** la prioridad de interrupción #5 ya existe. El cuerpo tendrá una entrada de "eventos externos" que la Fase 2 alimentará desde un pequeño servidor en `127.0.0.1` al que llamarán los *hooks* de Claude Code.
 - **Fase 3:** las actividades y escenas se diseñan de forma que puedan reusarse dentro de la ventana "casa".
+
+---
+
+## 10. Resultado del spike de ventanas (2026-09-29)
+
+**Qué se probó y cómo.** Se agregó código temporal (no commiteado) al final de
+`applicationDidFinishLaunching` que llama a `CGWindowListCopyWindowInfo` con
+`[.optionOnScreenOnly, .excludeDesktopElements]` y registra en el log el dueño, el nombre y
+los `bounds` de las primeras 15 ventanas. Se ejecutó desde `Clawd.app` **sin ningún permiso**
+y lanzada con `open` (para que macOS la trate como su propio proceso responsable; lanzada
+directo desde una terminal o desde Claude Code hereda los permisos del proceso padre y el
+resultado sale falseado, como pasó en una primera corrida descartada).
+
+**Resultado.**
+- **Bounds (posición y tamaño): sí.** Salieron para las 15 ventanas (X, Y, Width, Height),
+  incluidas las de otras apps (Finder, Safari, etc.).
+- **Nombres de ventana: no**, salvo algunas ventanas propias del sistema (p. ej. la barra de
+  menú). Las ventanas de apps de terceros salieron sin nombre.
+- **Aviso de permiso: no.** No apareció ningún diálogo. En el log de `tccd` solo hay una
+  consulta *preflight* de `kTCCServiceScreenCapture` (no dispara aviso) con estado "sin
+  decidir"; no hubo solicitud interactiva.
+
+**Conclusión.** Leer la posición y el tamaño de las ventanas es posible sin permisos: el
+sub-paso de colgar la hamaca de ventanas no maximizadas es viable sin permisos; se propone
+como mini-plan aparte. Limitaciones a considerar en ese plan: no se podrá identificar una
+ventana por su título (solo por dueño, capa y geometría), y hay que filtrar ventanas del
+sistema (barra de menú, Centro de control, `loginwindow`) y las propias de Clawd.

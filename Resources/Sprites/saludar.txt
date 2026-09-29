@@ -1,0 +1,26 @@
+# Saludar: levanta el bracito derecho y lo agita.
+fps: 6
+repetir: si
+ancla: 8,9
+paleta: O=#D97757 o=#B85C3E K=#1A1A1A
+
+--- cuadro 1
+..OOOOOOOOOOOO..
+..OOOOOOOOOOOOOO
+..OOKOOOOOOKOOOO
+OOOOKOOOOOOKOO..
+OOOOOOOOOOOOOO..
+..OOOOOOOOOOOO..
+..oooooooooooo..
+...O.O....O.O...
+...O.O....O.O...
+--- cuadro 2
+..OOOOOOOOOOOOOO
+..OOOOOOOOOOOOOO
+..OOKOOOOOOKOO..
+OOOOKOOOOOOKOO..
+OOOOOOOOOOOOOO..
+..OOOOOOOOOOOO..
+..oooooooooooo..
+...O.O....O.O...
+...O.O....O.O...

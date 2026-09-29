@@ -1,0 +1,40 @@
+# Trepar por la pared derecha: Clawd de lado, con las patitas pegadas a la pared.
+fps: 6
+repetir: si
+ancla: 9,8
+paleta: O=#D97757 o=#B85C3E K=#1A1A1A
+
+--- cuadro 1
+...OO....
+...OO....
+OOOOOOo..
+OOOOOOoOO
+OOKKOOo..
+OOOOOOoOO
+OOOOOOo..
+OOOOOOo..
+OOOOOOo..
+OOOOOOo..
+OOOOOOoOO
+OOKKOOo..
+OOOOOOoOO
+OOOOOOo..
+...OO....
+...OO....
+--- cuadro 2
+...OO....
+...OO....
+OOOOOOoOO
+OOOOOOo..
+OOKKOOoOO
+OOOOOOo..
+OOOOOOo..
+OOOOOOo..
+OOOOOOo..
+OOOOOOoOO
+OOOOOOo..
+OOKKOOoOO
+OOOOOOo..
+OOOOOOo..
+...OO....
+...OO....

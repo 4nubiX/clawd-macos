@@ -1,0 +1,26 @@
+# Cayendo (o cargado con ⌥ + arrastrar): bracitos arriba, agitándolos.
+fps: 8
+repetir: si
+ancla: 8,9
+paleta: O=#D97757 o=#B85C3E K=#1A1A1A
+
+--- cuadro 1
+O.OOOOOOOOOOOO.O
+O.OOOOOOOOOOOO.O
+..OOKOOOOOOKOO..
+..OOKOOOOOOKOO..
+..OOOOOOOOOOOO..
+..OOOOOOOOOOOO..
+..oooooooooooo..
+...O.O....O.O...
+...O.O....O.O...
+--- cuadro 2
+..OOOOOOOOOOOO..
+O.OOOOOOOOOOOO.O
+O.OOKOOOOOOKOO.O
+..OOKOOOOOOKOO..
+..OOOOOOOOOOOO..
+..OOOOOOOOOOOO..
+..oooooooooooo..
+...O.O....O.O...
+...O.O....O.O...
