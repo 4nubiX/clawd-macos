@@ -21,6 +21,8 @@ let library = TextSpriteSource(directory: URL(fileURLWithPath: arguments[1])).lo
 for failure in library.failures {
     FileHandle.standardError.write(Data("⚠️  \(failure.description)\n".utf8))
 }
+// Los problemas se avisan pero la hoja se escribe igual, para ver lo que sí cargó.
+var hadProblems = !library.failures.isEmpty
 guard !library.animations.isEmpty else { fail("No se cargó ninguna animación.") }
 
 let pixel = 6          // cada pixel del sprite mide 6 px en la hoja
@@ -62,6 +64,9 @@ for animation in animations {
         context.stroke(rect.insetBy(dx: -0.5, dy: -0.5))
         if let image = FrameRasterizer.image(from: frame) {
             context.draw(image, in: rect)
+        } else {
+            FileHandle.standardError.write(Data("⚠️  \(animation.name): no se pudo dibujar el cuadro \(index + 1)\n".utf8))
+            hadProblems = true
         }
         // Ancla: puntito rojo (y del ancla se mide desde arriba).
         let anchorX = rect.minX + CGFloat(animation.anchor.x * pixel)
@@ -80,3 +85,7 @@ else { fail("No se pudo preparar el archivo de salida.") }
 CGImageDestinationAddImage(destination, sheet, nil)
 guard CGImageDestinationFinalize(destination) else { fail("No se pudo escribir \(arguments[2]).") }
 print("Vista previa guardada en \(arguments[2])")
+if hadProblems {
+    // La hoja se escribió, pero hubo sprites o cuadros con problemas: que `make preview` lo note.
+    fail("Hubo problemas con algunos sprites (ver avisos arriba).")
+}
