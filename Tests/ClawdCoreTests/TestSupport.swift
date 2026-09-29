@@ -25,3 +25,11 @@ func info(_ width: Int, _ height: Int, anchor: (Int, Int), fps: Double, frames: 
         width: width, height: height, anchor: GridPoint(x: anchor.0, y: anchor.1),
         fps: fps, frameCount: frames, loops: loops)
 }
+
+/// El setup real de Santiago: MacBook (principal) a la izquierda y monitor 1080p a la derecha.
+let laptop = ScreenInfo(
+    id: 1, frame: CGRect(x: 0, y: 0, width: 1512, height: 982),
+    visibleFrame: CGRect(x: 0, y: 0, width: 1512, height: 945))
+let external = ScreenInfo(
+    id: 2, frame: CGRect(x: 1512, y: 0, width: 1920, height: 1080),
+    visibleFrame: CGRect(x: 1512, y: 0, width: 1920, height: 1055))
