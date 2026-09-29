@@ -6,7 +6,7 @@
 
 ![Plataforma](https://img.shields.io/badge/plataforma-macOS%2014%2B-lightgrey)
 ![Swift](https://img.shields.io/badge/Swift-6-orange)
-![Estado](https://img.shields.io/badge/estado-en%20dise%C3%B1o-yellow)
+![Estado](https://img.shields.io/badge/estado-fase%201-green)
 ![Licencia](https://img.shields.io/badge/licencia-MIT-blue)
 
 **🍎 Solo para macOS.** No hay versión para Windows ni para Linux, y no está planeada.
@@ -23,13 +23,10 @@ mínimo de batería.
 
 ## 🚧 Estado actual
 
-**Estamos en la etapa de diseño.** Todavía no hay una app que puedas descargar.
+- ✅ **Fase 1 ("Clawd vive")**: implementada (falta terminar las pruebas manuales). Ver [diseño](docs/specs/2026-09-28-fase-1-diseno.md), [plan](docs/plans/2026-09-29-fase-1-plan.md) y [pruebas manuales](docs/pruebas-manuales.md).
+- ⏳ Fase 2: reaccionar a Claude Code.
 
-- ✅ Diseño de la Fase 1 terminado → [`docs/specs/2026-09-28-fase-1-diseno.md`](docs/specs/2026-09-28-fase-1-diseno.md)
-- ⏳ Plan de implementación
-- ⏳ Código de la Fase 1
-
-Dale ⭐ o *watch* al repo si quieres enterarte cuando salga la primera versión.
+Por ahora no hay descargas firmadas: se compila desde el código (es rápido, ver abajo).
 
 ---
 
@@ -88,11 +85,22 @@ de monitor) están en el [documento de diseño](docs/specs/2026-09-28-fase-1-dis
 
 ---
 
-## 💻 Requisitos (cuando haya versión)
+## 💻 Compilar e instalar
 
-- macOS 14 (Sonoma) o superior
-- Mac con Apple Silicon o Intel
-- Para compilar: Xcode 16 o superior (o las Command Line Tools con Swift 6)
+Requisitos: macOS 14 (Sonoma) o superior y Xcode 16+ (o las Command Line Tools con Swift 6).
+
+    git clone https://github.com/4nubiX/clawd-macos.git
+    cd clawd-macos
+    make test      # corre los tests del cerebro
+    make install   # compila, arma Clawd.app, lo copia a /Applications y lo abre
+
+Otros comandos: `make dev` (correr sin empaquetar), `make run` (armar y abrir desde `build/`),
+`make preview` (hoja PNG con todas las animaciones en `build/preview.png`).
+
+**Uso:** Clawd vive solo. Acerca el mouse y se hace a un lado. **⌥ + click** para que salude,
+**⌥ + arrastrar** para cargarlo. **⌃⌥⌘C** lo esconde o lo muestra. El resto está en su icono de la barra de menú.
+
+**Logs:** `log stream --predicate 'subsystem == "com.4nubix.clawd"'` o Console.app filtrando por "Clawd".
 
 ---
 
