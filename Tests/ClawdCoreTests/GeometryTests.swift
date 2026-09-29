@@ -40,6 +40,14 @@ struct GeometryTests {
         #expect(Geometry.homeScreen(in: []) == nil)
     }
 
+    @Test("En empate de área, la casa es la de menor id")
+    func casaEmpate() {
+        let a = ScreenInfo(id: 5, frame: CGRect(x: 0, y: 0, width: 100, height: 100), visibleFrame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let b = ScreenInfo(id: 2, frame: CGRect(x: 100, y: 0, width: 100, height: 100), visibleFrame: CGRect(x: 100, y: 0, width: 100, height: 100))
+        #expect(Geometry.homeScreen(in: [a, b])?.id == 2)
+        #expect(Geometry.homeScreen(in: [b, a])?.id == 2)
+    }
+
     @Test("Cruza caminando entre pantallas pegadas")
     func cruceCaminando() {
         #expect(Geometry.crossing(from: laptop, to: external) == .walk(edgeX: 1512, direction: 1))

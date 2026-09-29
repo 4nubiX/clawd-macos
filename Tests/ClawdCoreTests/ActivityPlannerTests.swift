@@ -15,6 +15,18 @@ struct ActivityPlannerTests {
         #expect(planner.choose(floorHome, random: &random, now: 1) == .lookAround)
     }
 
+    @Test("La elección respeta los pesos (no solo el primer valor)")
+    func eleccionConPesos() {
+        // Piso en casa: idle 3, lookAround 2, wander 3, cook 1, goToCorner 4 → total 13.
+        var alFinal = ActivityPlanner(cooldowns: [:])
+        var casiUno: any RandomSource = FixedRandom([0.99])
+        #expect(alFinal.choose(floorHome, random: &casiUno, now: 0) == .goToCorner)
+
+        var justoDespuesDeIdle = ActivityPlanner(cooldowns: [:])
+        var tresTreceavos: any RandomSource = FixedRandom([3.0 / 13 + 0.001])
+        #expect(justoDespuesDeIdle.choose(floorHome, random: &tresTreceavos, now: 0) == .lookAround)
+    }
+
     @Test("Respeta los tiempos de espera (cocinar no sale seguido)")
     func tiempoDeEspera() {
         var planner = ActivityPlanner(cooldowns: [.cook: 600])
@@ -24,7 +36,7 @@ struct ActivityPlannerTests {
             let now = TimeInterval(second)
             if planner.choose(floorHome, random: &random, now: now) == .cook { cooked.append(now) }
         }
-        #expect(!cooked.isEmpty)
+        #expect(cooked.count >= 2, "sin al menos dos, el test no verifica el tiempo de espera")
         for (a, b) in zip(cooked, cooked.dropFirst()) {
             #expect(b - a >= 600)
         }
