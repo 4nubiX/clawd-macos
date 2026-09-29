@@ -81,6 +81,7 @@ de monitor) están en el [documento de diseño](docs/specs/2026-09-28-fase-1-dis
 - **No pide permisos de macOS** para funcionar. No necesita Accesibilidad ni Grabación de pantalla.
 - **Sin internet:** la Fase 1 no se conecta a nada.
 - **Sin telemetría:** no recopila ni envía ningún dato.
+- **Ocultar al compartir pantalla:** Clawd se excluye de las capturas de macOS; algunas apps de videollamada podrían ignorarlo, por eso existe el atajo ⌃⌥⌘C para esconderlo al instante.
 - **Fase 2:** la integración con Claude Code funcionará **solo en tu Mac** (`127.0.0.1`), mediante los *hooks* oficiales de Claude Code, que tú configuras.
 
 ---

@@ -1,7 +1,7 @@
 # Clawd para macOS — Diseño de la Fase 1: "Clawd vive"
 
 - **Fecha:** 2026-09-28
-- **Estado:** Diseño aprobado, pendiente de plan de implementación
+- **Estado:** Implementado en la rama `fase-1` (pruebas manuales en curso)
 - **Plataforma:** solo macOS 14 (Sonoma) o superior
 - **Autores:** Santiago H. ([@4nubiX](https://github.com/4nubiX)) con Claude (Anthropic)
 
@@ -108,7 +108,7 @@ se ve mal sabes enseguida si es un problema de lógica o de dibujo.
 - Un timer en el hilo principal llama a `brain.tick(snapshot)` y aplica el resultado.
 - **Frecuencia adaptativa** para cuidar la batería:
   - 30 fps mientras Clawd se mueve (caminar, trepar, caer, ser arrastrado).
-  - ~8 fps cuando está quieto.
+  - ~12 fps cuando está quieto.
   - ~2 fps dormido.
   - **0 fps** con la pantalla bloqueada o las pantallas dormidas.
 - El delta de tiempo **se limita a 0.1 s por tick**, para que al despertar la Mac Clawd no salga disparado.

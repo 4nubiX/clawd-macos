@@ -23,4 +23,4 @@ Correr después de `make install`. Anotar fecha, versión de macOS y resultado d
 | 15 | Atajo | ⌃⌥⌘C desde otra app | Lo esconde y lo muestra | ⏳ Pendiente (Santiago) |
 | 16 | Inicio de sesión | Activar, cerrar sesión y volver a entrar | Clawd arranca solo | ⏳ Pendiente (Santiago) |
 | 17 | Una sola instancia | Abrir Clawd.app dos veces | Solo hay un Clawd | ✅ 2026-09-29: se lanzó una segunda copia; se cerró sola automáticamente. Solo 1 instancia permanece. |
-| 18 | Consumo | Monitor de Actividad, 5 min en reposo | CPU < 1 % en promedio | ✅ 0.92 % CPU en reposo (muestra de 10 s) |
+| 18 | Consumo | Monitor de Actividad, 5 min en reposo | CPU < 1 % en promedio | 🟡 0.92 % CPU en una muestra de 10 s; falta la medición de 5 min en Monitor de Actividad. |
