@@ -27,7 +27,8 @@ public enum SpriteParser {
         // Cada cuadro guarda la línea donde empieza y sus filas (con número de línea).
         var frames: [(startLine: Int, rows: [(line: Int, text: String)])] = []
 
-        let lines = text.split(separator: "\n", omittingEmptySubsequences: false)
+        // isNewline también parte "\r\n" (archivos con fin de línea de Windows).
+        let lines = text.split(omittingEmptySubsequences: false, whereSeparator: \.isNewline)
         for (index, rawLine) in lines.enumerated() {
             let lineNumber = index + 1
             let line = rawLine.trimmingCharacters(in: .whitespacesAndNewlines)

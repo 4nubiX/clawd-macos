@@ -34,6 +34,14 @@ struct SpriteParserTests {
         #expect(anim.frames[0].pixel(x: 1, y: 1) == RGBA(r: 0x1A, g: 0x1A, b: 0x1A, a: 0x80))
     }
 
+    @Test("Acepta archivos con fin de línea de Windows (CRLF)")
+    func aceptaCRLF() throws {
+        let crlf = valido.replacingOccurrences(of: "\n", with: "\r\n")
+        let anim = try SpriteParser.parse(crlf, name: "prueba")
+        #expect(anim.frames.count == 2)
+        #expect(anim.width == 2 && anim.height == 2)
+    }
+
     @Test("Falta fps → error en la línea 1")
     func faltaFPS() {
         let texto = valido.replacingOccurrences(of: "fps: 4\n", with: "")
