@@ -1,9 +1,12 @@
 import AppKit
+import Carbon.HIToolbox
 import ClawdCore
 
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private var petController: PetController?
+    private var menuBarController: MenuBarController?
+    private var hideHotKey: GlobalHotKey?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         guard SingleInstance.isOnlyInstance() else {
@@ -25,8 +28,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             return
         }
 
-        let controller = PetController(library: library, settings: SettingsStore())
+        let settings = SettingsStore()
+        let controller = PetController(library: library, settings: settings)
         petController = controller
+        menuBarController = MenuBarController(controller: controller, settings: settings, library: library)
+
+        // ⌃⌥⌘C: esconder o mostrar a Clawd al instante (plan B garantizado para videollamadas).
+        hideHotKey = GlobalHotKey(
+            keyCode: UInt32(kVK_ANSI_C), modifiers: UInt32(cmdKey | optionKey | controlKey), id: 1
+        ) { [weak controller] in
+            controller?.toggleHidden()
+        }
+        if hideHotKey == nil { Log.app.error("No se pudo registrar el atajo ⌃⌥⌘C") }
+
         controller.start()
         Log.app.info("Clawd arrancó con \(library.animations.count) animaciones")
     }
