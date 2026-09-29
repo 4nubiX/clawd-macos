@@ -3,10 +3,12 @@ import ServiceManagement
 
 enum LoginItemError: LocalizedError {
     case noExecutable
+    case notInstalled
 
     var errorDescription: String? {
         switch self {
         case .noExecutable: "No se encontró el ejecutable de Clawd."
+        case .notInstalled: "Para abrir Clawd al iniciar sesión, primero instálalo con `make install` y ábrelo desde Aplicaciones."
         }
     }
 }
@@ -23,11 +25,17 @@ enum LoginItem {
     }
 
     static var isEnabled: Bool {
-        SMAppService.mainApp.status == .enabled || FileManager.default.fileExists(atPath: agentURL.path)
+        let status = SMAppService.mainApp.status
+        return status == .enabled || status == .requiresApproval || FileManager.default.fileExists(atPath: agentURL.path)
     }
+
+    /// Registrado, pero esperando que lo apruebes en Ajustes del Sistema.
+    static var needsApproval: Bool { SMAppService.mainApp.status == .requiresApproval }
 
     static func setEnabled(_ enabled: Bool) throws {
         if enabled {
+            // Solo desde /Applications: si no, al iniciar sesión se abriría una copia vieja (p. ej. la de build/).
+            guard Bundle.main.bundleURL.path.hasPrefix("/Applications/") else { throw LoginItemError.notInstalled }
             do {
                 try SMAppService.mainApp.register()
                 if SMAppService.mainApp.status == .requiresApproval {
@@ -36,11 +44,18 @@ enum LoginItem {
                 }
                 Log.app.info("Inicio de sesión activado con SMAppService")
             } catch {
+                let status = SMAppService.mainApp.status
+                if status == .enabled || status == .requiresApproval {
+                    // Ya estaba registrado: no duplicamos el mecanismo con un LaunchAgent.
+                    Log.app.notice("SMAppService ya estaba registrado (\(error.localizedDescription, privacy: .public)); no escribo LaunchAgent")
+                    return
+                }
                 Log.app.notice("SMAppService falló (\(error.localizedDescription, privacy: .public)); uso LaunchAgent")
                 try writeLaunchAgent()
             }
         } else {
-            if SMAppService.mainApp.status == .enabled { try SMAppService.mainApp.unregister() }
+            let status = SMAppService.mainApp.status
+            if status == .enabled || status == .requiresApproval { try SMAppService.mainApp.unregister() }
             if FileManager.default.fileExists(atPath: agentURL.path) { try FileManager.default.removeItem(at: agentURL) }
             Log.app.info("Inicio de sesión desactivado")
         }

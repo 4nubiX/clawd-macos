@@ -31,7 +31,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let settings = SettingsStore()
         let controller = PetController(library: library, settings: settings)
         petController = controller
-        menuBarController = MenuBarController(controller: controller, settings: settings, library: library)
 
         // ⌃⌥⌘C: esconder o mostrar a Clawd al instante (plan B garantizado para videollamadas).
         hideHotKey = GlobalHotKey(
@@ -40,6 +39,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             controller?.toggleHidden()
         }
         if hideHotKey == nil { Log.app.error("No se pudo registrar el atajo ⌃⌥⌘C") }
+
+        menuBarController = MenuBarController(controller: controller, settings: settings, library: library, hotKeyAvailable: hideHotKey != nil)
 
         controller.start()
         Log.app.info("Clawd arrancó con \(library.animations.count) animaciones")

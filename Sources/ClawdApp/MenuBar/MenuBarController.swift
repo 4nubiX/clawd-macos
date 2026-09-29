@@ -8,10 +8,13 @@ final class MenuBarController: NSObject, NSMenuDelegate {
     private let menu = NSMenu()
     private let controller: PetController
     private let settings: SettingsStore
+    /// Si el atajo ⌃⌥⌘C no se pudo registrar, el menú no debe anunciarlo.
+    private let hotKeyAvailable: Bool
 
-    init(controller: PetController, settings: SettingsStore, library: SpriteLibrary) {
+    init(controller: PetController, settings: SettingsStore, library: SpriteLibrary, hotKeyAvailable: Bool) {
         self.controller = controller
         self.settings = settings
+        self.hotKeyAvailable = hotKeyAvailable
         super.init()
 
         if let idle = library.animations[AnimationName.idle],
@@ -42,11 +45,12 @@ final class MenuBarController: NSObject, NSMenuDelegate {
         sizeItem.submenu = sizeMenu
         menu.addItem(sizeItem)
 
-        menu.addItem(item(settings.isHidden ? "Mostrar a Clawd (⌃⌥⌘C)" : "Esconder a Clawd (⌃⌥⌘C)", #selector(toggleHidden)))
+        let hotKeyHint = hotKeyAvailable ? " (⌃⌥⌘C)" : " (atajo no disponible)"
+        menu.addItem(item((settings.isHidden ? "Mostrar a Clawd" : "Esconder a Clawd") + hotKeyHint, #selector(toggleHidden)))
         menu.addItem(item(settings.forceSleep ? "Despertar" : "Dormir ahora", #selector(toggleSleep)))
         menu.addItem(.separator())
         menu.addItem(item("Ocultar al compartir pantalla", #selector(toggleHideWhenSharing), on: settings.hideWhenSharing))
-        menu.addItem(item("Abrir al iniciar sesión", #selector(toggleLaunchAtLogin), on: LoginItem.isEnabled))
+        menu.addItem(item("Abrir al iniciar sesión" + (LoginItem.needsApproval ? " (pendiente de aprobar en Ajustes)" : ""), #selector(toggleLaunchAtLogin), on: LoginItem.isEnabled))
         menu.addItem(.separator())
         menu.addItem(NSMenuItem(title: "Salir de Clawd", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
     }
@@ -77,6 +81,8 @@ final class MenuBarController: NSObject, NSMenuDelegate {
             let alert = NSAlert()
             alert.messageText = "No se pudo cambiar \"Abrir al iniciar sesión\""
             alert.informativeText = error.localizedDescription
+            // Clawd es una app accesoria: sin esto la alerta podría quedar detrás de otras ventanas.
+            NSApp.activate(ignoringOtherApps: true)
             alert.runModal()
         }
     }
