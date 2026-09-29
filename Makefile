@@ -1,8 +1,12 @@
-# Atajos para compilar y probar Clawd. Crece en las tareas 4 y 9.
-.PHONY: test clean
+# Atajos para compilar y probar Clawd. Crece en la tarea 9.
+.PHONY: test preview clean
 
 test:
 	swift test
+
+preview:
+	mkdir -p build
+	swift run clawd-preview Resources/Sprites build/preview.png
 
 clean:
 	rm -rf .build build

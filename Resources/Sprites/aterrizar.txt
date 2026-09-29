@@ -1,0 +1,36 @@
+# Aterrizar: se aplasta al tocar el piso y regresa a su forma.
+fps: 6
+repetir: no
+ancla: 8,9
+paleta: O=#D97757 o=#B85C3E K=#1A1A1A
+
+--- cuadro 1 (aplastado)
+................
+................
+.OOOOOOOOOOOOOO.
+.OOOKOOOOOOKOOO.
+OOOOKOOOOOOKOOOO
+OOOOOOOOOOOOOOOO
+.oooooooooooooo.
+...O.O....O.O...
+...O.O....O.O...
+--- cuadro 2 (aplastado)
+................
+................
+.OOOOOOOOOOOOOO.
+.OOOKOOOOOOKOOO.
+OOOOKOOOOOOKOOOO
+OOOOOOOOOOOOOOOO
+.oooooooooooooo.
+...O.O....O.O...
+...O.O....O.O...
+--- cuadro 3 (normal)
+..OOOOOOOOOOOO..
+..OOOOOOOOOOOO..
+..OOKOOOOOOKOO..
+OOOOKOOOOOOKOOOO
+OOOOOOOOOOOOOOOO
+..OOOOOOOOOOOO..
+..oooooooooooo..
+...O.O....O.O...
+...O.O....O.O...

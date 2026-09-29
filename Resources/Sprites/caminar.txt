@@ -1,0 +1,46 @@
+# Caminar: las patitas se mueven atrás y adelante.
+fps: 8
+repetir: si
+ancla: 8,9
+paleta: O=#D97757 o=#B85C3E K=#1A1A1A
+
+--- cuadro 1
+..OOOOOOOOOOOO..
+..OOOOOOOOOOOO..
+..OOKOOOOOOKOO..
+OOOOKOOOOOOKOOOO
+OOOOOOOOOOOOOOOO
+..OOOOOOOOOOOO..
+..oooooooooooo..
+...O.O....O.O...
+...O.O....O.O...
+--- cuadro 2
+..OOOOOOOOOOOO..
+..OOOOOOOOOOOO..
+..OOKOOOOOOKOO..
+OOOOKOOOOOOKOOOO
+OOOOOOOOOOOOOOOO
+..OOOOOOOOOOOO..
+..oooooooooooo..
+..O.O....O.O....
+..O.O....O.O....
+--- cuadro 3
+..OOOOOOOOOOOO..
+..OOOOOOOOOOOO..
+..OOKOOOOOOKOO..
+OOOOKOOOOOOKOOOO
+OOOOOOOOOOOOOOOO
+..OOOOOOOOOOOO..
+..oooooooooooo..
+...O.O....O.O...
+...O.O....O.O...
+--- cuadro 4
+..OOOOOOOOOOOO..
+..OOOOOOOOOOOO..
+..OOKOOOOOOKOO..
+OOOOKOOOOOOKOOOO
+OOOOOOOOOOOOOOOO
+..OOOOOOOOOOOO..
+..oooooooooooo..
+....O.O....O.O..
+....O.O....O.O..
