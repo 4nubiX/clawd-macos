@@ -41,7 +41,12 @@ extension Brain {
             distance: distance, optionPressed: world.optionPressed, now: now,
             enterDistance: config.ghostEnterDistance, exitDistance: config.ghostExitDistance,
             exitDelay: config.ghostExitDelay)
-        guard transition == .entered, current.activity != .carried else { return }
+        if world.optionPressed || world.dragAnchor != nil || current.activity == .carried {
+            lastInteractionAt = now
+        }
+        // Si acabas de interactuar, el mouse encima no es un susto: se vuelve fantasma pero no huye.
+        let justInteracted = now - lastInteractionAt < config.interactionGrace
+        guard transition == .entered, current.activity != .carried, !justInteracted else { return }
         let key = zoneKey(for: current)
         if hotZones.registerScare(key, at: now) { onEvent?(.zoneBecameHot(key)) }
         startDodge(world, scale: scale)
@@ -65,6 +70,7 @@ extension Brain {
             current.activity = .dodge
             current.elapsed = 0
             current.duration = info(AnimationName.dodge).duration
+            current.waveAfterLanding = false
             state = current
         case (.corner, .sit), (.corner, .wave), (.hammock, .hammock):
             // Arriba no hay a dónde hacerse: se baja. Si la esquina ya está caliente, de un salto.

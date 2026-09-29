@@ -20,6 +20,8 @@ public final class Brain {
     /// Reloj interno (suma de deltas): hace al cerebro determinista en los tests.
     var now: TimeInterval = 0
     var opacity: Double = 1
+    /// Última vez (reloj interno) que interactuaste con Clawd: ⌥ presionado o cargándolo.
+    var lastInteractionAt: TimeInterval = -.infinity
     var lastScreens: [ScreenInfo] = []
 
     public init(infos: [String: AnimationInfo], random: any RandomSource, config: BrainConfig = BrainConfig()) {

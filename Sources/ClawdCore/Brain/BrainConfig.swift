@@ -15,6 +15,9 @@ public struct BrainConfig: Sendable {
     public var ghostExitDelay: TimeInterval = 1
     public var ghostOpacity: Double = 0.3
     public var fadeDuration: TimeInterval = 0.15
+    /// Tras interactuar con Clawd (⌥ presionado o cargándolo), durante este tiempo
+    /// el mouse encima no cuenta como susto: estabas jugando con él, no espantándolo.
+    public var interactionGrace: TimeInterval = 1
 
     public var hotZoneScares = 3
     public var hotZoneWindow: TimeInterval = 180

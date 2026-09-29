@@ -83,6 +83,7 @@ extension Brain {
         current.targetX = nil
         current.targetY = nil
         current.arrival = .rest
+        current.waveAfterLanding = false
         state = current
     }
 }

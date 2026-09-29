@@ -48,6 +48,11 @@ func isWatchdog(_ event: BrainEvent) -> Bool {
     return false
 }
 
+func isHotZone(_ event: BrainEvent) -> Bool {
+    if case .zoneBecameHot = event { return true }
+    return false
+}
+
 // MARK: - Tests
 
 @Suite("Cerebro")
@@ -145,6 +150,39 @@ struct BrainTests {
         #expect(brain.state?.activity == .wave)
     }
 
+    @Test("Soltar ⌥ después de saludarlo no es un susto: no esquiva ni calienta la zona")
+    func soltarOptionNoEsSusto() throws {
+        let brain = makeBrain()
+        var events: [BrainEvent] = []
+        brain.onEvent = { events.append($0) }
+        brain.forceState(floorState())
+        let first = try #require(brain.tick(world()))
+        let center = CGPoint(x: first.frameRect.midX, y: first.frameRect.midY)
+        for _ in 0..<3 {
+            brain.tick(world(mouse: center, option: true, clicked: true))
+            #expect(brain.state?.activity == .wave)
+            run(brain, world(mouse: center), seconds: 0.5)   // sueltas ⌥ con el mouse encima
+            #expect(brain.state?.activity == .wave)
+            run(brain, world(), seconds: 2)                  // alejas el mouse; termina el saludo
+        }
+        #expect(!events.contains(where: isHotZone))
+    }
+
+    @Test("Soltarlo después de cargarlo con ⌥ no cuenta como susto")
+    func soltarArrastreNoEsSusto() {
+        let brain = makeBrain()
+        var events: [BrainEvent] = []
+        brain.onEvent = { events.append($0) }
+        brain.forceState(floorState())
+        let spot = CGPoint(x: 3_000, y: 600)
+        for _ in 0..<3 {
+            brain.tick(world(mouse: spot, option: true, drag: spot))   // lo cargas con ⌥
+            brain.tick(world(mouse: spot))                              // sueltas todo con el mouse encima
+            run(brain, world(), seconds: 3)                             // cae, aterriza y sigue su vida
+        }
+        #expect(!events.contains(where: isHotZone))
+    }
+
     @Test("⌥ arrastrar lo carga; al soltarlo cae")
     func arrastre() {
         let brain = makeBrain()
@@ -219,5 +257,6 @@ struct BrainTests {
             }
         }
         #expect(!events.contains(where: isWatchdog), "\(events.filter(isWatchdog))")
+        #expect(events.filter(isRelocation).count == 2, "solo al arrancar y al desconectar el monitor")
     }
 }
